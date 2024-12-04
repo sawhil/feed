@@ -19,4 +19,5 @@ export const createComment = async (activePostId, commentContent, path) => {
       timestamp: new Date(),
       child: {},
     });
-  })} ;
+  });
+};

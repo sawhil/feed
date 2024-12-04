@@ -1,5 +1,5 @@
 import PostComponent from "../../components/PostComponent";
-import { useAtom } from 'jotai';
+import { useAtom } from "jotai";
 import { pinnedPostIdAtom } from "../../store/atoms";
 
 const Feed = ({ posts, submitComment }) => {

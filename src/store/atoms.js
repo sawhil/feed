@@ -1,4 +1,4 @@
-import { atom, useAtomValue } from 'jotai';
+import { atom, useAtomValue } from "jotai";
 
 export const postsAtom = atom({});
 export const pinnedPostIdAtom = atom(null);

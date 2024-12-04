@@ -14,9 +14,9 @@ const PostComponent = ({ postData, onSubmitComment, onPinPost, isPinned }) => {
           margin: "10px",
           borderRadius: "5px",
           boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         <div>{postData?.content}</div>
@@ -24,13 +24,13 @@ const PostComponent = ({ postData, onSubmitComment, onPinPost, isPinned }) => {
           <button
             onClick={() => onPinPost(postData.id)}
             style={{
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              padding: '4px 8px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              marginLeft: '10px'
+              backgroundColor: "#4CAF50",
+              color: "white",
+              padding: "4px 8px",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              marginLeft: "10px",
             }}
           >
             Pin Post
