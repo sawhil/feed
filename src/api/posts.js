@@ -1,4 +1,5 @@
 import { POSTS } from "../constants";
+import { v4 as uuid } from "uuid";
 export const fetchPosts = async () => {
   // Simulating API call for now
   return new Promise((resolve) => {
@@ -11,7 +12,7 @@ export const fetchPosts = async () => {
 export const createComment = async (activePostId, commentContent, path) => {
   // Simulating API call
   return new Promise((resolve) => {
-    const newCommentId = new Date().getSeconds();
+    const newCommentId = uuid();
     resolve({
       id: newCommentId,
       content: commentContent,
