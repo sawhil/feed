@@ -19,6 +19,7 @@ const CommentInput = ({ activePostId, onSubmitComment, path }) => {
       />
       <button
         onClick={() => {
+          setNewComment("");
           onSubmitComment(activePostId, newComment, path);
         }}
         style={{

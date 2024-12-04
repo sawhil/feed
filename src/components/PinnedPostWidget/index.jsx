@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import PostComponent from "../PostComponent";
+import { useAtom } from "jotai";
+import { pinnedPostIdAtom, pinnedPostPositionAtom, usePinnedPostData } from "../../store/atoms";
 
-const PinnedPostWidget = ({ post, position, onPositionChange, onUnpin }) => {
+const PinnedPostWidget = ({ submitComment }) => {
+  const [pinnedPostId, setPinnedPostId] = useAtom(pinnedPostIdAtom);
+  const [pinnedPostPosition, setPinnedPostPosition] = useAtom(pinnedPostPositionAtom);
+  const pinnedPostData = usePinnedPostData();
+
+  const handleUnpinPost = () => {
+    setPinnedPostId(null);
+  };
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const widgetRef = useRef(null);
@@ -20,7 +29,7 @@ const PinnedPostWidget = ({ post, position, onPositionChange, onUnpin }) => {
       if (isDragging) {
         const newX = e.clientX - dragOffset.x;
         const newY = e.clientY - dragOffset.y;
-        onPositionChange({ x: newX, y: newY });
+        setPinnedPostPosition({ x: newX, y: newY });
       }
     };
 
@@ -37,15 +46,17 @@ const PinnedPostWidget = ({ post, position, onPositionChange, onUnpin }) => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging, dragOffset, onPositionChange]);
+  }, [isDragging, dragOffset, setPinnedPostPosition]);
+
+  if(!pinnedPostId) return <></>
 
   return (
     <div
       ref={widgetRef}
       style={{
         position: "fixed",
-        left: position.x,
-        top: position.y,
+        left: pinnedPostPosition.x,
+        top: pinnedPostPosition.y,
         zIndex: 1000,
         cursor: isDragging ? "grabbing" : "grab",
         backgroundColor: "white",
@@ -68,7 +79,7 @@ const PinnedPostWidget = ({ post, position, onPositionChange, onUnpin }) => {
       >
         <span>Pinned Post</span>
         <button
-          onClick={onUnpin}
+          onClick={handleUnpinPost}
           style={{
             padding: "4px 8px",
             backgroundColor: "#ff4444",
@@ -81,8 +92,7 @@ const PinnedPostWidget = ({ post, position, onPositionChange, onUnpin }) => {
           Unpin
         </button>
       </div>
-      {/* pass in the handlers to handle the comments addition */}
-      <PostComponent postData={post} isPinned={true} />
+      <PostComponent postData={pinnedPostData} isPinned={true} onSubmitComment={submitComment}/>
     </div>
   );
 };
